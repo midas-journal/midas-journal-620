@@ -1,0 +1,1147 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE ITKFilterDescription>
+
+<!--***************************************************************************
+SIMITK Project
+
+Karen Li and Jing Xiang
+June 2008
+
+XML description of ITK filters and objects
+****************************************************************************-->
+
+<Filter_Descriptions>
+
+<Filter>
+	<Name>BilateralImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>DomainSigma</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<ITK_Parameter_Type>ArrayType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>NumberOfRangeGaussianSamples</Parameter_Name>
+			<Parameter_Type>unsigned long</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>RangeSigma</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>BinaryMedianImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Radius</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<ITK_Parameter_Type>InputSizeType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>BinaryThresholdImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Type>InputPixelType</Input_Type>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>InsideValue</Parameter_Name>
+			<Parameter_Type>OutputPixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>LowerThreshold</Parameter_Name>
+			<Parameter_Type>InputPixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>OutsideValue</Parameter_Name>
+			<Parameter_Type>OutputPixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>UpperThreshold</Parameter_Name>
+			<Parameter_Type>InputPixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+			<Output_Type>OutputPixelType</Output_Type>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>BinomialBlurImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Repetitions</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>CannyEdgeDetectionImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Allowed_Datatypes>
+		<Datatype>float</Datatype>
+	</Allowed_Datatypes>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>LowerThreshold</Parameter_Name>
+			<Parameter_Type>OutputImagePixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>MaximumError</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<ITK_Parameter_Type>ArrayType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>OutsideValue</Parameter_Name>
+			<Parameter_Type>OutputImagePixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>UpperThreshold</Parameter_Name>
+			<Parameter_Type>OutputImagePixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Variance</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<ITK_Parameter_Type>ArrayType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+			<Output_Type>OutputImagePixelType</Output_Type>
+			<Output_Dimension>ImageDimension</Output_Dimension>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>CannySegmentationLevelSetImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Allowed_Datatypes>
+		<Datatype>float</Datatype>
+	</Allowed_Datatypes>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+		<Input>
+			<Input_Name>FeatureImage</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>AdvectionScaling</Parameter_Name>
+			<Parameter_Type>OutputImagePixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>CurvatureScaling</Parameter_Name>
+			<Parameter_Type>OutputImagePixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>IsoSurfaceValue</Parameter_Name>
+			<Parameter_Type>OutputImagePixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>MaximumRMSError</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>NumberOfIterations</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>PropagationScaling</Parameter_Name>
+			<Parameter_Type>OutputImagePixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Threshold</Parameter_Name>
+			<Parameter_Type>OutputImagePixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Variance</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+			<Output_Type>OutputImagePixelType</Output_Type>
+			<Allowed_Output_Types>float</Allowed_Output_Types>
+			<Output_Dimension>ImageDimension</Output_Dimension>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>CheckerBoardImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input1</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+		<Input>
+			<Input_Name>Input2</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>CheckerPattern</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<ITK_Parameter_Type>PatternArrayType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+			<Output_Dimension>ImageDimension</Output_Dimension>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>ConfidenceConnectedImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+		<Parameter_Name>InitialNeighborhoodRadius</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Multiplier</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>NumberOfIterations</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>ReplaceValue</Parameter_Name>
+			<Parameter_Type>OutputImagePixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Seed</Parameter_Name>
+			<Parameter_Type>int</Parameter_Type>
+			<ITK_Parameter_Type>IndexType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+			<Output_Type>OutputImagePixelType</Output_Type>
+			<Output_Dimension>ImageDimension</Output_Dimension>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>CurvatureAnisotropicDiffusionImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>ConductanceParameter</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>NumberOfIterations</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>TimeStep</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>CurvatureFlowImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>NumberOfIterations</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>TimeStep</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>DerivativeImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Allowed_Datatypes>
+		<Datatype>float</Datatype>
+		<Datatype>short</Datatype>
+	</Allowed_Datatypes>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Direction</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Order</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>DiscreteGaussianImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Allowed_Datatypes>
+		<Datatype>float</Datatype>
+		<Datatype>short</Datatype>
+	</Allowed_Datatypes>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>MaximumError</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<ITK_Parameter_Type>ArrayType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>		
+		<Parameter>
+			<Parameter_Name>MaximumKernelWidth</Parameter_Name>
+			<Parameter_Type>int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>	
+		<Parameter>
+			<Parameter_Name>Variance</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<ITK_Parameter_Type>ArrayType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+			<Output_Dimension>ImageDimension</Output_Dimension>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>FastMarchingImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>StoppingValue</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>TrialPoints</Parameter_Name>
+			<ITK_Parameter_Type>NodeContainer</ITK_Parameter_Type>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>FlipImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>FlipAxes</Parameter_Name>
+			<Parameter_Type>bool</Parameter_Type>
+			<ITK_Parameter_Type>FlipAxesArrayType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+			<Output_Dimension>ImageDimension</Output_Dimension>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>GradientAnisotropicDiffusionImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>		
+		<Parameter>
+			<Parameter_Name>ConductanceParameter</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>NumberOfIterations</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>TimeStep</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>GradientMagnitudeImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>GradientMagnitudeRecursiveGaussianImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Sigma</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>LaplacianRecursiveGaussianImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>NormalizeAcrossScale</Parameter_Name>
+			<Parameter_Type>bool</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Sigma</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>MeanImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Radius</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<ITK_Parameter_Type>InputSizeType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>MedianImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Radius</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<ITK_Parameter_Type>InputSizeType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>MinMaxCurvatureFlowImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>NumberOfIterations</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>StencilRadius</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>TimeStep</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>NormalizeImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>RecursiveGaussianImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Direction</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>NormalizeAcrossScale</Parameter_Name>
+			<Parameter_Type>bool</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Order</Parameter_Name>
+			<Enum_Parameter_Type>OrderEnumType</Enum_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+			<Allowed_Parameter_Values>0,1,2</Allowed_Parameter_Values>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Sigma</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>ResampleImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>DefaultPixelValue</Parameter_Name>
+			<Parameter_Type>OutputPixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Interpolator</Parameter_Name>
+			<ITK_Parameter_Type>InterpolatorType</ITK_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>OutputOrigin</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<ITK_Parameter_Type>OriginPointType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>OutputSpacing</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<ITK_Parameter_Type>SpacingType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Size</Parameter_Name>
+			<ITK_Parameter_Type>SizeType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Transform</Parameter_Name>
+			<ITK_Parameter_Type>TransformType</ITK_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+			<Output_Type>OutputPixelType</Output_Type>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>SigmoidImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Alpha</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Beta</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+			<Parameter>
+			<Parameter_Name>OutputMaximum</Parameter_Name>
+			<Parameter_Type>OutputPixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+			<Parameter>
+			<Parameter_Name>OutputMinimum</Parameter_Name>
+			<Parameter_Type>OutputPixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+			<Output_Type>OutputPixelType</Output_Type>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>ThresholdImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Type>PixelType</Input_Type>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Lower</Parameter_Name>
+			<Parameter_Type>PixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>OutsideValue</Parameter_Name>
+			<Parameter_Type>PixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Upper</Parameter_Name>
+			<Parameter_Type>PixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+			<Output_Type>PixelType</Output_Type>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>VotingBinaryHoleFillingImageFilter</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TOutputImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>Input</Input_Name>
+			<Input_Type>InputPixelType</Input_Type>
+			<Input_Dimension>ImageDimension</Input_Dimension>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>BackgroundValue</Parameter_Name>
+			<Parameter_Type>InputPixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>		
+		<Parameter>
+			<Parameter_Name>ForegroundValue</Parameter_Name>
+			<Parameter_Type>InputPixelType</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>MajorityThreshold</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>Radius</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<ITK_Parameter_Type>InputSizeType</ITK_Parameter_Type>
+			<Parameter_Size>1,ImageDimension</Parameter_Size>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>Output</Output_Name>
+			<Output_Dimension>ImageDimension</Output_Dimension>
+		</Output>
+	</Outputs>
+</Filter>
+
+<Filter>
+	<Name>ImageToImageRegistrationHelper</Name>
+	<Template_Parameters>
+		<Template_Parameter>TImage</Template_Parameter>
+	</Template_Parameters>
+	<Inputs>
+		<Input>
+			<Input_Name>FixedImage</Input_Name>
+		</Input>
+		<Input>
+			<Input_Name>MovingImage</Input_Name>
+		</Input>
+	</Inputs>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>InitialMethodEnum</Parameter_Name>
+			<Enum_Parameter_Type>InitialMethodEnumType</Enum_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+			<Allowed_Parameter_Values>0,1,2,3,4</Allowed_Parameter_Values>
+		</Parameter>
+		<!--********************************Process Control Parameters*********************************-->
+		<Parameter>
+			<Parameter_Name>EnableAffineRegistration</Parameter_Name>
+			<Parameter_Type>bool</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>EnableBSplineRegistration</Parameter_Name>
+			<Parameter_Type>bool</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		<Parameter>
+		<Parameter_Name>EnableInitialRegistration</Parameter_Name>
+			<Parameter_Type>bool</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>EnableRigidRegistration</Parameter_Name>
+			<Parameter_Type>bool</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<!--*********************************Rigid Parameters******************************************-->
+		<Parameter>
+			<Parameter_Name>RigidMaxIterations</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>RigidSamplingRatio</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>RigidTargetError</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>RigidInterpolationMethodEnum</Parameter_Name>
+			<Enum_Parameter_Type>InterpolationMethodEnumType</Enum_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+			<Allowed_Parameter_Values>0,1,2</Allowed_Parameter_Values>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>RigidMetricMethodEnum</Parameter_Name>
+			<Enum_Parameter_Type>MetricMethodEnumType</Enum_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+			<Allowed_Parameter_Values>0,1,2</Allowed_Parameter_Values>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>RigidOptimizationMethodEnum</Parameter_Name>
+			<Enum_Parameter_Type>OptimizationMethodEnumType</Enum_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+			<Allowed_Parameter_Values>0,1,2</Allowed_Parameter_Values>
+		</Parameter>
+		
+		<!--*********************************Affine Parameters******************************************-->
+		<Parameter>
+			<Parameter_Name>AffineMaxIterations</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>AffineSamplingRatio</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>AffineTargetError</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		
+		<Parameter>
+			<Parameter_Name>AffineInterpolationMethodEnum</Parameter_Name>
+			<Enum_Parameter_Type>InterpolationMethodEnumType</Enum_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+			<Allowed_Parameter_Values>0,1,2</Allowed_Parameter_Values>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>AffineMetricMethodEnum</Parameter_Name>
+			<Enum_Parameter_Type>MetricMethodEnumType</Enum_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+			<Allowed_Parameter_Values>0,1,2</Allowed_Parameter_Values>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>AffineOptimizationMethodEnum</Parameter_Name>
+			<Enum_Parameter_Type>OptimizationMethodEnumType</Enum_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+			<Allowed_Parameter_Values>0,1,2</Allowed_Parameter_Values>
+		</Parameter>
+		
+		<!--*********************************BSpline Parameters******************************************-->
+		<Parameter>
+			<Parameter_Name>BSplineControlPointPixelSpacing</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>BSplineMaxIterations</Parameter_Name>
+			<Parameter_Type>unsigned int</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>BSplineSamplingRatio</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>BSplineTargetError</Parameter_Name>
+			<Parameter_Type>double</Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+		
+		<Parameter>
+			<Parameter_Name>BSplineInterpolationMethodEnum</Parameter_Name>
+			<Enum_Parameter_Type>InterpolationMethodEnumType</Enum_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+			<Allowed_Parameter_Values>0,1,2</Allowed_Parameter_Values>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>BSplineMetricMethodEnum</Parameter_Name>
+			<Enum_Parameter_Type>MetricMethodEnumType</Enum_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+			<Allowed_Parameter_Values>0,1,2</Allowed_Parameter_Values>
+		</Parameter>
+		<Parameter>
+			<Parameter_Name>BSplineOptimizationMethodEnum</Parameter_Name>
+			<Enum_Parameter_Type>OptimizationMethodEnumType</Enum_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+			<Allowed_Parameter_Values>0,1,2</Allowed_Parameter_Values>
+		</Parameter>
+	</Parameters>
+	<Outputs>
+		<Output>
+			<Output_Name>FinalMovingImage</Output_Name>
+		</Output>
+	</Outputs>
+</Filter>
+
+<!--*********************************Other ITK objects******************************************-->
+<Interpolator>
+	<Name>LinearInterpolateImageFunction</Name>
+	<Template_Parameters>
+		<Template_Parameter>TInputImage</Template_Parameter>
+		<Template_Parameter>TCoordRep</Template_Parameter>
+	</Template_Parameters>
+</Interpolator>
+
+</Filter_Descriptions>

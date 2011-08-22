@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE ITKFilterDescription>
+
+<!--***************************************************************************
+SIMITK Project
+
+Karen Li and Jing Xiang
+June 2008
+
+XML description of ITK transforms
+****************************************************************************-->
+
+<Filter_Descriptions>
+
+<Transform>
+	<Name>CenteredEuler3DTransform</Name>
+	<Template_Parameters>
+		<Template_Parameter>TScalarType</Template_Parameter>
+	</Template_Parameters>
+	<Allowed_Dimensionalities>
+		<Dimensionality>3</Dimensionality>
+	</Allowed_Dimensionalities>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Parameters</Parameter_Name>
+			<ITK_Parameter_Type>ParametersType</ITK_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>		
+		<Parameter>
+			<Parameter_Name>FixedParameters</Parameter_Name>
+			<ITK_Parameter_Type>ParametersType</ITK_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+</Transform>
+
+<Transform>
+	<Name>CenteredRigid2DTransform</Name>
+	<Template_Parameters>
+		<Template_Parameter>TScalarType</Template_Parameter>
+	</Template_Parameters>
+	<Allowed_Dimensionalities>
+		<Dimensionality>2</Dimensionality>
+	</Allowed_Dimensionalities>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Parameters</Parameter_Name>
+			<ITK_Parameter_Type>ParametersType</ITK_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>		
+		<Parameter>
+			<Parameter_Name>FixedParameters</Parameter_Name>
+			<ITK_Parameter_Type>ParametersType</ITK_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+</Transform>
+
+<Transform>
+	<Name>CenteredSimilarity2DTransform</Name>
+	<Template_Parameters>
+		<Template_Parameter>TScalarType</Template_Parameter>
+	</Template_Parameters>
+	<Allowed_Dimensionalities>
+		<Dimensionality>2</Dimensionality>
+	</Allowed_Dimensionalities>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Parameters</Parameter_Name>
+			<ITK_Parameter_Type>ParametersType</ITK_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>		
+		<Parameter>
+			<Parameter_Name>FixedParameters</Parameter_Name>
+			<ITK_Parameter_Type>ParametersType</ITK_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+</Transform>
+
+<Transform>
+	<Name>TranslationTransform</Name>
+	<Template_Parameters>
+		<Template_Parameter>TScalarType</Template_Parameter>
+		<Template_Parameter>NDimensions</Template_Parameter>
+	</Template_Parameters>
+	<Parameters>
+		<Parameter>
+			<Parameter_Name>Parameters</Parameter_Name>
+			<ITK_Parameter_Type>ParametersType</ITK_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>		
+		<Parameter>
+			<Parameter_Name>FixedParameters</Parameter_Name>
+			<ITK_Parameter_Type>ParametersType</ITK_Parameter_Type>
+			<Parameter_Size>1,1</Parameter_Size>
+		</Parameter>
+	</Parameters>
+</Transform>
+
+</Filter_Descriptions>
+

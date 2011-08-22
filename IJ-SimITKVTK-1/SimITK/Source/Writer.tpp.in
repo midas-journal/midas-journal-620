@@ -1,0 +1,65 @@
+/******************************************************************************
+SIMITK Project
+
+Copyright (c) Queen's University
+All rights reserved.
+
+See Copyright.txt for more details.
+
+Karen Li and Jing Xiang
+June 2008
+
+@WRITER_NAME@.tpp
+******************************************************************************/
+
+#ifndef INC_HEADER_H
+#define INC_HEADER_H
+#include "VirtualBlock.h"
+#include "ImageConversion.tpp"
+#endif
+
+#include "itkImageFileWriter.h"
+
+template <class InputPortType, class OutputPortType>
+class @WRITER_NAME@: public VirtualBlock <InputPortType, OutputPortType> {
+
+	public:
+		@WRITER_NAME@(char* name){
+			m_FileName = name;
+			
+			//Create the port for input, note that the Writer does not have output
+			this->m_Inputs.push_back(InputPortType());
+		}
+		
+		void Run(){
+			Write();
+		}
+		
+	private:
+		char* m_FileName;
+		unsigned int* m_Size;
+				
+		void Write(){
+			typedef itk::Image<typename InputPortType::PixelType, InputPortType::ImageDimension> InputImageType;
+			typename InputImageType::Pointer inputImage = InputImageType::New();
+			
+			typedef itk::ImageFileWriter<InputImageType>WriterType;
+			typename WriterType::Pointer writer = WriterType::New(); //WriterType is an ITK Image File Writer
+			
+			//sets the image to be loaded
+			writer->SetFileName(m_FileName);
+			
+			typename InputPortType::PixelType *inputMatrix = this->GetInput(0).GetArray();
+			m_Size = this->GetInput(0).GetSize();
+			inputImage->SetSpacing(this->GetInput(0).GetSpacing());
+			inputImage->SetOrigin(this->GetInput(0).GetOrigin());
+		
+			// Translates the input matrix into an image.
+			ConvertMatrixToImage(inputMatrix, inputImage.GetPointer(), m_Size);
+			
+			writer->SetInput(inputImage); //sets the image as the input of the writer
+			
+			//update the writer so that it writes the image to a file
+			writer->Update();
+		}		
+ };

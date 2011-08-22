@@ -1,0 +1,29 @@
+% =================
+% Copyright (c) Queen's University
+% All rights reserved.
+
+% See Copyright.txt for more details.
+% =================
+
+function Sim@FILTER_NAME@Callback(action,block)
+
+%% Use function handle to call appropriate callback
+feval(action,block)
+
+%%all callbacks work almost identically so first is commented to explain
+%%what is happening and rest follow same principle.
+%%At end of file is a function to output the current ports labelled
+%%properly, which is called after any indicator callback to ensure that the
+%%port labels are always up to date.  Currently goes through entire MaskValues
+%%list and creates a new label scheme for the current set-up, as it seems
+%%impossible to change them individually, as you can never be sure where in
+%%list it should go without actually going through all the MaskValues to
+%%see its proper position based on the currently showing inputs.  (Ie.
+%%can't tell how many inputs are supposed to be before it without actually
+%%going through the MaskValues to see what the user wishes to leave as
+%%input.)
+
+
+@FUNCTION_CALLBACK_STRING@
+
+@PORT_LABEL_STRING@

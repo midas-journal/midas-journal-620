@@ -1,0 +1,28 @@
+    Block {
+      BlockType					"S-Function"
+      Name		      			"@FILTER_NAME@"
+      Ports		      			[@NUM_INPUT_PORTS@, @NUM_OUTPUT_PORTS@]  
+      Position		      		[@LEFT@, @TOP@, @RIGHT@, @BOTTOM@]
+      LoadFcn		      		"val = get_param(gcb,'MaskValues');\nset_param(gcb, 'MaskValues', val);\nSim@FILTER_NAME@Callback('SetPortLabels', gcb);"
+      FunctionName	      		"Sim@FILTER_NAME@Mat"
+      Parameters	      		@FILTER_PARAMETERS@
+      EnableBusSupport			off
+      MaskPromptString	    	@MASK_PROMPT_STRING@
+      MaskStyleString	      	@MASK_STYLE_STRING@
+      MaskTunableValueString  	@MASK_TUNABLE_VALUE_STRING@
+      MaskCallbackString		@MASK_CALLBACK_STRING@  
+      MaskEnableString	      	@MASK_ENABLE_STRING@	
+      MaskVisibilityString    	@MASK_VISIBILITY_STRING@
+      MaskToolTipString	      	@MASK_TOOL_TIP_STRING@
+      MaskVarAliasString      	@MASK_VAR_ALIAS_STRING@
+      MaskVariables	      		@MASK_VARIABLES@
+      MaskDisplay	      		@MASK_DISPLAY@
+      MaskSelfModifiable		on
+      MaskIconFrame	      		on
+      MaskIconOpaque	      	on
+      MaskIconRotate	      	"none"
+      MaskIconUnits	      		"autoscale"
+      MaskValueString	       	@MASK_VALUE_STRING@  
+      MaskTabNameString	      	@MASK_TAB_NAME_STRING@
+    }
+

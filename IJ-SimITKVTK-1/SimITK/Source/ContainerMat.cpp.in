@@ -1,0 +1,264 @@
+/****************************************************************
+SIMITK Project
+
+Copyright (c) Queen's University
+All rights reserved.
+
+See Copyright.txt for more details.
+
+Karen Li and Jing Xiang
+June 2008
+
+SimITK@CONTAINER_NAME@Mat.cpp
+******************************************************************/
+
+//setup s-function type, format and name
+#define S_FUNCTION_LEVEL 2
+#define MATLAB_MEX_FILE
+#define S_FUNCTION_NAME  SimITK@CONTAINER_NAME@Mat
+
+#define IMAGE_DIMENSIONALITY @DIMENSIONALITY@
+#define INPUT_IMAGE_PIXELTYPE @INPUT_PIXELTYPE@
+#define OUTPUT_IMAGE_PIXELTYPE @OUTPUT_PIXELTYPE@
+
+//include headers that will be used within the s-function
+#include "mex.h"
+#include "SimITK@CONTAINER_NAME@.tpp"
+
+//must include if written in c++
+#ifdef __cplusplus
+extern "C" { // use the C fcn-call standard for all functions  
+#endif       // defined within this scope
+
+/*
+ * Need to include simstruc.h for the definition of the SimStruct and
+ * its associated macro definitions.
+ */
+#include "simstruc.h"
+/*====================*
+ * S-function methods *
+ *====================*/
+
+/* Function: mdlInitializeSizes ===============================================
+ * Abstract:
+ *    The sizes information is used by Simulink to determine the S-function
+ *    block's characteristics (number of inputs, outputs, states, etc.).
+ */
+static void mdlInitializeSizes(SimStruct* S)
+{   
+	//set up special datatype in Matlab which is a pointer to the container
+	DTypeId SpecialTypeID;
+
+	if (ssGetDataTypeId(S, "ITKSpecialType") == INVALID_DTYPE_ID){
+		SpecialTypeID = ssRegisterDataType(S, "ITKSpecialType");
+		if (SpecialTypeID == INVALID_DTYPE_ID)    
+			return;
+		int status = ssSetDataTypeSize(S, SpecialTypeID, sizeof(void *));
+		if (status == 0) 
+			return;
+	}else{
+		SpecialTypeID = ssGetDataTypeId(S, "ITKSpecialType");
+	}
+
+	//setup appropriate number of parameters
+	ssSetNumSFcnParams(S, 2);
+	if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
+		// Return if number of expected != number of actual parameters
+		return;
+	}
+
+	if (IMAGE_DIMENSIONALITY > 2) {
+		ssAllowSignalsWithMoreThan2D(S);
+	}
+
+	//No input ports required
+	if (!ssSetNumInputPorts(S, 0)) return;
+
+	//there are no continuous or discrete states to be used
+	ssSetNumContStates(S, 0);
+	ssSetNumDiscStates(S, 0);
+	
+	if (!ssSetNumOutputPorts(S, 1)) return;
+
+	//setup output port for special type
+	ssSetOutputPortWidth(S, 0, 1);
+	ssSetOutputPortDataType(S, 0, SpecialTypeID);
+
+	//set a single sample time
+	ssSetNumSampleTimes(S, 1);
+	//no work vectors are necessary
+	ssSetNumRWork(S, 0);
+	ssSetNumIWork(S, 0);
+	ssSetNumPWork(S, 0);
+	ssSetNumModes(S, 0);
+	ssSetNumNonsampledZCs(S, 0);
+	ssSetOptions(S, 0);
+} //end mdlInitializeSizes
+
+/* Function: mdlInitializeSampleTimes =========================================
+ * Abstract:
+ *    This function is used to specify the sample time(s) for your
+ *    S-function. You must register the same number of sample times as
+ *    specified in ssSetNumSampleTimes.
+ */
+static void mdlInitializeSampleTimes(SimStruct *S)
+{
+	//set sample time to be continous
+	ssSetSampleTime(S, 0, CONTINUOUS_SAMPLE_TIME);
+	ssSetOffsetTime(S, 0, 0.0);
+}
+
+#define MDL_START  /* Change to #undef to remove function */
+#if defined(MDL_START)
+  /* Function: mdlStart =======================================================
+   * Abstract:
+   *    This function is called once at start of model execution. If you
+   *    have states that should be initialized once, this is the place
+   *    to do it.
+   */
+static void mdlStart(SimStruct *S){
+	//Gets the number of values and number of points, and ensures
+	//that the two counts are equal
+	unsigned int ValueCount = mxGetNumberOfElements(ssGetSFcnParam(S,0));
+	unsigned int IndexCount = mxGetNumberOfElements(ssGetSFcnParam(S,1));
+
+	unsigned int NumberOfPoints = IndexCount/IMAGE_DIMENSIONALITY;
+	unsigned int Remainder = IndexCount%IMAGE_DIMENSIONALITY;
+
+	if (ValueCount != NumberOfPoints || Remainder != 0 ){
+		ssSetErrorStatus(S, "Number of values not equal to the number of points.");
+		return;
+	}
+
+	typedef SimITK@CONTAINER_NAME@<VirtualPort<INPUT_IMAGE_PIXELTYPE,IMAGE_DIMENSIONALITY>,
+		VirtualPort<OUTPUT_IMAGE_PIXELTYPE,IMAGE_DIMENSIONALITY> > SimITKSpecialType;
+	SimITKSpecialType* special = new SimITKSpecialType;
+
+	//Gets the number of values, which corresponds to the number of seeds
+	unsigned int Count = mxGetNumberOfElements(ssGetSFcnParam(S,0));
+
+	// Gets the value from the parameters.
+	double* Value = mxGetPr(ssGetSFcnParam(S,0));
+	double* Index = mxGetPr(ssGetSFcnParam(S,1));
+		
+	special->SetValue(Value);
+	special->SetIndex(Index);
+	special->SetSize(Count);
+	
+	special->Run();
+
+	ssSetUserData(S, special);
+}
+#endif /*  MDL_START */
+
+static void mdlOutputs(SimStruct *S, int_T tid)
+{    
+	typedef SimITK@CONTAINER_NAME@<VirtualPort<INPUT_IMAGE_PIXELTYPE,IMAGE_DIMENSIONALITY>,
+		VirtualPort<OUTPUT_IMAGE_PIXELTYPE,IMAGE_DIMENSIONALITY> > SimITKSpecialType;
+    
+	void* Pointer = ssGetUserData(S);
+	SimITKSpecialType* special = reinterpret_cast<SimITKSpecialType*>(Pointer);
+
+	//--------------Output Ports
+
+	void** outputPointer = (void**) ssGetOutputPortSignal(S,0);
+	outputPointer[0] = special->GetSpecialOutput(0).GetPointer();
+}
+
+#define MDL_SET_INPUT_PORT_DIMENSION_INFO
+#if defined(MDL_SET_INPUT_PORT_DIMENSION_INFO) && defined(MATLAB_MEX_FILE)
+  /* Function: mdlSetInputPortDimensionInfo ====================================
+   * Abstract:
+   *    This method is called with the candidate dimensions for an input port
+   *    with unknown dimensions. If the proposed dimensions are acceptable, the 
+   *    method should go ahead and set the actual port dimensions.  
+   *    If they are unacceptable an error should be generated via 
+   *    ssSetErrorStatus.  
+   *    Note that any other input or output ports whose dimensions are  
+   *    implicitly defined by virtue of knowing the dimensions of the given 
+   *    port can also have their dimensions set.
+   *
+   *    See matlabroot/simulink/src/sfun_matadd.c for an example. 
+   */
+static void mdlSetInputPortDimensionInfo(SimStruct *S, int_T port,
+                                         const DimsInfo_T *dimsInfo)
+{
+	//dynamically set input port dimensions from the input signal at runtime
+	if(!ssSetInputPortDimensionInfo(S, port, dimsInfo)) return;
+}
+#endif /* MDL_SET_INPUT_PORT_DIMENSION_INFO */
+
+#define MDL_SET_OUTPUT_PORT_DIMENSION_INFO
+#if defined(MDL_SET_OUTPUT_PORT_DIMENSION_INFO) && defined(MATLAB_MEX_FILE)
+  /* Function: mdlSetOutputPortDimensionInfo ===================================
+   * Abstract:
+   *    This method is called with the candidate dimensions for an output port 
+   *    with unknown dimensions. If the proposed dimensions are acceptable, the 
+   *    method should go ahead and set the actual port dimensions.  
+   *    If they are unacceptable an error should be generated via 
+   *    ssSetErrorStatus.  
+   *    Note that any other input or output ports whose dimensions are  
+   *    implicitly defined by virtue of knowing the dimensions of the given 
+   *    port can also have their dimensions set.
+   *
+   *    See matlabroot/simulink/src/sfun_matadd.c for an example. 
+   */
+ static void mdlSetOutputPortDimensionInfo(SimStruct *S, int_T port,
+                                            const DimsInfo_T *dimsInfo)
+ {
+ }
+#endif /* MDL_SET_OUTPUT_PORT_DIMENSION_INFO */
+
+#define MDL_SET_DEFAULT_PORT_DIMENSION_INFO /* Change to #define to add fcn */
+#if defined(MDL_SET_DEFAULT_PORT_DIMENSION_INFO) && defined(MATLAB_MEX_FILE)
+  /* Function: mdlSetDefaultPortDimensionInfo ==================================
+   * Abstract:
+   *    This method is called when there is not enough information in your
+   *    model to uniquely determine the port dimensionality of signals
+   *    entering or leaving your block. When this occurs, Simulink's
+   *    dimension propagation engine calls this method to ask you to set
+   *    your S-functions default dimensions for any input and output ports
+   *    that are dynamically sized.
+   *
+   *    If you do not provide this method and you have dynamically sized ports
+   *    where Simulink does not have enough information to propagate the
+   *    dimensionality to your S-function, then Simulink will set these unknown
+   *    ports to the 'block width' which is determined by examining any known
+   *    ports. If there are no known ports, the width will be set to 1.
+   *
+   *    See matlabroot/simulink/src/sfun_matadd.c for an example. 
+   */
+ static void mdlSetDefaultPortDimensionInfo(SimStruct *S)
+ {
+ } 
+#endif /* MDL_SET_DEFAULT_PORT_DIMENSION_INFO */
+
+/* Function: mdlTerminate =====================================================
+ * Abstract:
+ *    In this function, you should perform any actions that are necessary
+ *    at the termination of a simulation.  For example, if memory was
+ *    allocated in mdlStart, this is the place to free it.
+ */
+static void mdlTerminate(SimStruct *S)
+{
+	typedef SimITK@CONTAINER_NAME@<VirtualPort<INPUT_IMAGE_PIXELTYPE,IMAGE_DIMENSIONALITY>,
+		VirtualPort<OUTPUT_IMAGE_PIXELTYPE,IMAGE_DIMENSIONALITY> > SimITKSpecialType;
+
+	void* Pointer = ssGetUserData(S);
+	SimITKSpecialType* special = reinterpret_cast<SimITKSpecialType*>(Pointer);
+	delete special;
+}
+
+/*=============================*
+ * Required S-function trailer *
+ *=============================*/
+
+#ifdef  MATLAB_MEX_FILE    /* This file is to be compiled as a MEX-file */
+#include "simulink.c"      /* MEX-file interface mechanism */
+#else
+#include "cg_sfun.h"       /* Code generation registration function */
+#endif
+
+#ifdef __cplusplus
+} // end of extern "C" scope
+#endif

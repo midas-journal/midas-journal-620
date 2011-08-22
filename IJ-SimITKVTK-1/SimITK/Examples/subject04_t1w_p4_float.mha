@@ -1,0 +1,6 @@
+NDims = 3
+DimSize = 256 256 181
+ElementType = MET_FLOAT
+ElementSpacing = 1.0 1.0 1.0
+ElementByteOrderMSB = False
+ElementDataFile = subject04_t1w_p4_float.raw

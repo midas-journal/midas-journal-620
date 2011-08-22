@@ -1,0 +1,54 @@
+/******************************************************************************
+SIMITK Project
+
+Copyright (c) Queen's University
+All rights reserved.
+
+See Copyright.txt for more details.
+
+Karen Li and Jing Xiang
+June 2008
+
+SimITK@FILTER_NAME@.tpp
+******************************************************************************/
+
+#ifndef INC_HEADER_H
+#define INC_HEADER_H
+#include "VirtualBlock.h"
+#include "ImageConversion.tpp"
+#endif
+
+#include "itk@ITK_FILTER_NAME@.h"
+
+template <class InputPortType, class OutputPortType>
+class SimITK@FILTER_NAME@: public VirtualBlock <InputPortType, OutputPortType> {
+
+public:
+		typedef itk::Image<typename InputPortType::PixelType, InputPortType::ImageDimension>   InputImageType;
+@ITK_FILTER_TYPEDEF@
+
+	SimITK@FILTER_NAME@() {
+		// Interpolators have no inputs and one special output
+		for (int i=0; i<1; i++) {
+			this->m_SpecialOutputs.push_back(VirtualSpecialPort());
+		}
+	}
+	
+	void Run() {
+		Filter();
+	}
+	
+
+private:
+	typename ITKFilterType::Pointer interpolator;
+	
+	
+	void Filter() {
+
+		interpolator = ITKFilterType::New();
+
+		// Set the output pointer
+		this->GetSpecialOutput(0).SetPointer(interpolator.GetPointer());		
+		
+	}
+ };

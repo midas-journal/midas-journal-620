@@ -1,0 +1,90 @@
+/******************************************************************************
+SIMITK Project
+
+Copyright (c) Queen's University
+All rights reserved.
+
+See Copyright.txt for more details.
+
+Karen Li and Jing Xiang
+June 2008
+
+SimITK@ITK_FILTER_NAME@@DIMENSIONALITY_CODE@.tpp
+******************************************************************************/
+
+#ifndef INC_HEADER_H
+#define INC_HEADER_H
+#include "VirtualBlock.h"
+#include "ImageConversion.tpp"
+#endif
+
+#include "itk@ITK_FILTER_NAME@.h"
+
+template <class InputPortType, class OutputPortType>
+class SimITK@ITK_FILTER_NAME@@DIMENSIONALITY_CODE@: public VirtualBlock <InputPortType, OutputPortType> {
+
+public:
+@ITK_FILTER_TYPEDEF@
+
+	SimITK@ITK_FILTER_NAME@@DIMENSIONALITY_CODE@() {
+		// Transforms have no inputs and one special output
+		for (int i=0; i<1; i++) {
+			this->m_SpecialOutputs.push_back(VirtualSpecialPort());
+		}
+	}
+	
+	void Run() {
+		Filter();
+	}
+	
+	// mutators
+	void SetParameters(double* value) {
+		m_Parameters = value;
+	}
+	void SetFixedParameters(double* value) {
+		m_FixedParameters = value;
+	}
+	
+	// accessors
+	double* GetParameters() {
+		return m_Parameters;
+	}
+	double* GetFixedParameters() {
+		return m_FixedParameters;
+	}
+
+private:
+	double* m_Parameters;
+	double* m_FixedParameters;
+	typename ITKFilterType::Pointer transform;
+	
+	
+	void Filter() {
+
+		transform = ITKFilterType::New();
+		
+
+		// Sets the parameters of the ITK filter using methods from the original ITK class.
+		// If necessary, parameter types are converted from Matlab to ITK
+		typename ITKFilterType::ParametersType Parameters;
+		int numParameters = transform->GetNumberOfParameters();
+		Parameters.SetSize(numParameters);
+		for (int i = 0; i < numParameters; i++) {
+			Parameters[i] = m_Parameters[i];
+		}
+		transform->SetParameters(Parameters);	
+	
+/*		typename ITKFilterType::ParametersType FixedParameters;
+		int numFixedParameters = 0;
+		FixedParameters.SetSize(numFixedParameters);
+		for (int i = 0; i < numFixedParameters; i++) {
+			FixedParameters[i] = m_FixedParameters[i];
+		}
+		transform->SetFixedParameters(FixedParameters);
+*/
+
+		// Set the output pointer
+		this->GetSpecialOutput(0).SetPointer(transform.GetPointer());		
+		
+	}
+ };

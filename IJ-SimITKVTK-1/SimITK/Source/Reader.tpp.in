@@ -1,0 +1,110 @@
+/******************************************************************************
+SIMITK Project
+
+Copyright (c) Queen's University
+All rights reserved.
+
+See Copyright.txt for more details.
+
+Karen Li and Jing Xiang
+June 2008
+
+@READER_NAME@.tpp
+******************************************************************************/
+
+#ifndef INC_HEADER_H
+#define INC_HEADER_H
+#include "VirtualBlock.h"
+#include "ImageConversion.tpp"
+#endif
+
+#include "itkImageFileReader.h"
+
+template <class InputPortType, class OutputPortType>
+class @READER_NAME@: public VirtualBlock <InputPortType, OutputPortType> {
+
+	public:	
+		@READER_NAME@(char* name){
+			m_FileName = name;
+			
+			//Create the port for output, note that the Reader does not have input
+			this->m_Outputs.push_back(OutputPortType());
+		}
+
+		void GenerateOutputSizes () {
+
+			typedef itk::Image<typename OutputPortType::PixelType, OutputPortType::ImageDimension> OutputImageType;
+			typedef itk::ImageFileReader<OutputImageType> ReaderType;
+			
+			//ReaderType is an ITK Image File Reader
+			typename ReaderType::Pointer reader = ReaderType::New();
+			
+			//sets the image to be loaded
+			reader->SetFileName(m_FileName);
+
+			// Set the output size according to input size information
+			reader->UpdateOutputInformation();
+			
+			typename OutputImageType::RegionType region = reader->GetOutput()->GetLargestPossibleRegion();
+			
+			typename OutputImageType::SizeType OutputSizeITK = region.GetSize();
+			unsigned int OutputSizeSim[OutputPortType::ImageDimension];
+			
+			for (int i = 0; i<OutputPortType::ImageDimension; i++){
+				OutputSizeSim[i] = OutputSizeITK[i];
+			}
+			
+			this->GetOutput(0).SetSize(OutputSizeSim);
+		}
+		
+		void Run(){
+			Read();
+		}
+		
+		unsigned int* GetImageSize(){
+			return m_Size;
+		}
+		
+	private:
+		char* m_FileName;
+		unsigned int* m_Size;
+				
+		void Read(){
+			typedef itk::Image<typename OutputPortType::PixelType, OutputPortType::ImageDimension> OutputImageType;
+			typedef itk::ImageFileReader<OutputImageType> ReaderType;
+			
+			//ReaderType is an ITK Image File Reader
+			typename ReaderType::Pointer reader = ReaderType::New();
+			
+			//sets the image to be loaded
+			reader->SetFileName(m_FileName);
+			
+			// Get the output matrix
+			typename OutputPortType::PixelType *outputMatrix = this->GetOutput(0).GetArray();
+			m_Size = this->GetOutput(0).GetSize();
+
+			// Loads the reader's output into an matrix
+			ConvertImageToMatrix(reader->GetOutput(), outputMatrix, m_Size);
+			
+			//update the reader so that it reads the image
+			reader->Update();
+			
+			typename OutputImageType::PointType originITK = reader->GetOutput()->GetOrigin();
+			typename OutputImageType::SpacingType spacingITK = reader->GetOutput()->GetSpacing();
+			
+			double originSim[OutputPortType::ImageDimension];
+			double spacingSim[OutputPortType::ImageDimension];
+			
+			for (int i = 0; i<OutputPortType::ImageDimension; i++){
+				originSim[i] = originITK[i];
+				if (spacingITK[i] == 0){
+					spacingSim[i] = 1.0;
+				}else{
+					spacingSim[i] = spacingITK[i];
+				}
+			}			
+
+			this->GetOutput(0).SetOrigin(originSim);
+			this->GetOutput(0).SetSpacing(spacingSim);
+		}		
+ };

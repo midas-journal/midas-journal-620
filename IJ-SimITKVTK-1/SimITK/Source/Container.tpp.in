@@ -1,0 +1,96 @@
+/******************************************************************************
+SIMITK Project
+
+Copyright (c) Queen's University
+All rights reserved.
+
+See Copyright.txt for more details.
+
+Karen Li and Jing Xiang
+June 2008
+
+SimITK@CONTAINER_NAME@.tpp
+******************************************************************************/
+
+#ifndef INC_HEADER_H
+#define INC_HEADER_H
+#include "VirtualBlock.h"
+#endif
+
+#include "itkLevelSet.h"
+
+template <class InputPortType, class OutputPortType>
+class SimITK@CONTAINER_NAME@: public VirtualBlock<InputPortType, OutputPortType>{
+
+public: 
+
+	typedef itk::Image<typename InputPortType::PixelType, InputPortType::ImageDimension> ImageType;
+	typedef itk::LevelSetNode<typename InputPortType::PixelType, InputPortType::ImageDimension> NodeType;
+	typedef itk::VectorContainer<unsigned int,NodeType> NodeContainer;
+
+	SimITK@CONTAINER_NAME@(){
+		for (int i=0; i<1; i++) {
+			this->m_SpecialOutputs.push_back(VirtualSpecialPort());
+		}
+	}
+
+	void Run() {
+		Fill();
+	}
+	
+	// mutators
+	void SetValue(double* value) {
+		m_Value = value;
+	}
+	
+	void SetIndex(double* index){
+		m_Index = index;
+	}
+	
+	void SetSize(unsigned int size){
+		m_Size = size;
+	}
+	
+	// accessors
+	double* GetValue() {
+		return m_Value;
+	}
+	
+	double* GetIndex(){
+		return m_Index;
+	}
+
+	unsigned int GetSize(){
+		return m_Size;
+	}
+	
+private:
+
+	double* m_Value;
+	double* m_Index;
+	unsigned int m_Size;
+	typename NodeContainer::Pointer m_Points;
+	
+	void Fill() {
+		
+		NodeType Node;
+		typename ImageType::IndexType  Position;    
+		
+		m_Points = NodeContainer::New();
+		m_Points->Initialize();        
+
+		this->GetSpecialOutput(0).SetPointer(m_Points.GetPointer());	    
+        
+		//for each point provided
+		for (int i=0; i<m_Size; i++){
+			for (int d = 0; d < InputPortType::ImageDimension; d++){
+				int ArrayIndex = d + i*(InputPortType::ImageDimension);
+				Position[d] = (unsigned int) m_Index[ArrayIndex];
+			}
+	
+			Node.SetValue( m_Value[i] );
+			Node.SetIndex( Position );
+			m_Points->InsertElement( i, Node );
+		}
+	}
+};

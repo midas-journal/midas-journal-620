@@ -1,0 +1,13 @@
+    Block {
+      BlockType                 "S-Function"
+      Name                      "itk@FILTER_NAME@"
+      Ports                     [@NUM_INPUT_PORTS@, @NUM_OUTPUT_PORTS@]
+      BackgroundColor           @BACKGROUND_COLOR@
+      Position                  [@LEFT@, @TOP@, @RIGHT@, @BOTTOM@]
+      FunctionName              "SimITK@FILTER_NAME@Mat"
+      MaskDisplay               @MASK_DISPLAY@
+      MaskIconFrame             on
+      MaskIconOpaque            on
+      MaskIconRotate            "none"
+      MaskIconUnits             "autoscale"
+    }

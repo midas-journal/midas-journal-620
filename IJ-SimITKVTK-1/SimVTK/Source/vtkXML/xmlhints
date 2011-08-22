@@ -1,0 +1,15 @@
+vtkAlgorithm                          GetExecutive                      309  -1
+vtkAlgorithm                          GetInformation                    309  -1
+vtkAlgorithm                          SetExecutive                      002  -1
+vtkAlgorithm                          SetInformation                    002  -1
+vtkInformation                        Get                               309  -1
+vtkInformation                        Set                               309  -1
+vtkInformation                        GetRequest                        309  -1
+vtkInformation                        SetRequest                        309  -1
+vtkObject                             GetDebug                          003  -1
+vtkObject                             SetDebug                          003  -1
+vtkObjectBase                         GetReferenceCount                 309  -1
+vtkObjectBase                         SetReferenceCount                 309  -1
+vtkRenderer                           GetRenderWindow                   309  -1
+vtkRenderer                           SetRenderWindow                   002  -1
+

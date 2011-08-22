@@ -1,0 +1,83 @@
+/******************************************************************************
+SIMITK Project
+
+Copyright (c) Queen's University
+All rights reserved.
+
+See Copyright.txt for more details.
+
+Karen Li and Jing Xiang
+June 2008
+
+SimITK@FILTER_NAME@.tpp
+******************************************************************************/
+
+#ifndef INC_HEADER_H
+#define INC_HEADER_H
+#include "VirtualBlock.h"
+#include "ImageConversion.tpp"
+#endif
+
+#include "itk@ITK_FILTER_NAME@.h"
+
+template <class InputPortType, class OutputPortType>
+class SimITK@FILTER_NAME@: public VirtualBlock <InputPortType, OutputPortType> {
+
+public:
+	SimITK@FILTER_NAME@() {
+		for (int i=0; i<@NUM_INPUTS@; i++) {
+			this->m_Inputs.push_back(InputPortType());
+		}
+		for (int i=0; i<@NUM_OUTPUTS@; i++) {
+			this->m_Outputs.push_back(OutputPortType());
+		}
+	}
+	
+	void Run() {
+		Filter();
+	}
+	
+	// mutators
+@MUTATOR_METHODS@
+
+	// accessors
+@ACCESSOR_METHODS@
+
+private:
+@MEMBER_VARIABLES@
+
+	void Filter() {
+
+		typedef itk::Image<typename InputPortType::PixelType, InputPortType::ImageDimension>   InputImageType;
+		typedef itk::Image<typename OutputPortType::PixelType, OutputPortType::ImageDimension>   OutputImageType;
+
+@ITK_FILTER_TYPEDEF@
+
+		// Creates the input image.
+@CREATE_INPUT_IMAGES@
+
+		typename ITKFilterType::Pointer filter = ITKFilterType::New();
+
+		// Sets the parameters of the ITK filter using methods from the original ITK class.
+		// If necessary, parameter types are converted from Matlab to ITK
+@SET_FILTER_PARAMETERS@		
+		
+		// Get the input and output matrices
+@GET_INPUT_MATRICES@
+@GET_OUTPUT_MATRICES@
+	
+@SET_INPUT_DATA_INFORMATION@
+		
+		// Translates the input matrix into an itk image.
+@CONVERT_MATRICES_TO_IMAGES@
+@GET_OUTPUT_SIZE@
+@SET_INPUT_IMAGES@
+	    
+		filter->Update();
+		
+		// Translate the filter's output into an array.
+@CONVERT_IMAGES_TO_MATRICES@
+
+@SET_OUTPUT_DATA_INFORMATION@
+	}
+ };
